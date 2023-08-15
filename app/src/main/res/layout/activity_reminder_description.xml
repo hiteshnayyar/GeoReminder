@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- Data item that holds the reminder details -->
+        <variable
+            name="reminderDataItem"
+            type="com.udacity.project4.locationreminders.reminderslist.ReminderDataItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".locationreminders.ReminderDescriptionActivity"
+        tools:layout_editor_absoluteX="-8dp"
+        tools:layout_editor_absoluteY="-121dp">
+
+        <!-- TODO: Add the design of the reminder details -->
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="top"
+            android:text="Reminder Details"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/lblTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/lblTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="top"
+            android:text="Title"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="top"
+            android:text="@{reminderDataItem.title}"
+            app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblTitle"
+            tools:text="Meeting with Client" />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="top"
+            android:text="@{reminderDataItem.Description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblDesc"
+            tools:text="Pre-Sales Meeting with Client on Mobile app" />
+
+        <TextView
+            android:id="@+id/lblDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="top"
+            android:text="Description"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
