@@ -2,12 +2,10 @@ package com.udacity.project4.locationreminders.data.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,20 +43,32 @@ class RemindersDaoTest {
 
     @Test fun insertReminderAndGetById() = runBlockingTest {
         // GIVEN - Insert a reminder.
-        val reminder = ReminderDTO("title", "description", "Location", 0.0, 0.0)
-        database.reminderDao().saveReminder(reminder)
-
+        val initreminder = ReminderDTO("title", "description", "Location", 0.0, 0.0)
+        database.reminderDao().saveReminder(initreminder)
+        val id = initreminder.id
         // WHEN - Get the reminder by id from the database.
-        val loaded = database.reminderDao().getReminderById(reminder.id)
+        var loaded = database.reminderDao().getReminderById(initreminder.id)
 
         // THEN - The loaded data contains the expected values.
-        assertThat<ReminderDataItem>(loaded as ReminderDataItem, notNullValue())
-        assertThat(loaded.id, `is`(reminder.id))
-        assertThat(loaded.title, `is`(reminder.title))
-        assertThat(loaded.description, `is`(reminder.description))
-        assertThat(loaded.location, `is`(reminder.location))
-        assertThat(loaded.latitude, `is`(reminder.latitude))
-        assertThat(loaded.longitude, `is`(reminder.longitude))
+        assertThat<ReminderDTO>(loaded as ReminderDTO, notNullValue())
+        assertThat(loaded.id, `is`(initreminder.id))
+        assertThat(loaded.title, `is`(initreminder.title))
+        assertThat(loaded.description, `is`(initreminder.description))
+        assertThat(loaded.location, `is`(initreminder.location))
+        assertThat(loaded.latitude, `is`(initreminder.latitude))
+        assertThat(loaded.longitude, `is`(initreminder.longitude))
+
+        loaded = null
+        val updatedReminder = ReminderDTO("title1", "description1", "Location1", 0.1, 0.2,id)
+        database.reminderDao().saveReminder(updatedReminder)
+        loaded = database.reminderDao().getReminderById(id)
+        assertThat<ReminderDTO>(loaded as ReminderDTO, notNullValue())
+        assertThat(loaded.title, `is`(updatedReminder.title))
+        assertThat(loaded.description, `is`(updatedReminder.description))
+        assertThat(loaded.location, `is`(updatedReminder.location))
+        assertThat(loaded.latitude, `is`(updatedReminder.latitude))
+        assertThat(loaded.longitude, `is`(updatedReminder.longitude))
+
     }
 
 

@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,49 @@ import org.junit.runner.RunWith
 //Medium Test to test the repository
 @MediumTest
 class RemindersLocalRepositoryTest {
+    //Add testing implementation to the RemindersLocalRepository.kt
+    // Executes each task synchronously using Architecture Components.
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
 
-//    TODO: Add testing implementation to the RemindersLocalRepository.kt
+    private lateinit var dataSource: ReminderDataSource
+    private lateinit var database: RemindersDatabase
 
+    @Before fun setup() {
+        // Using an in-memory database for testing, because it doesn't survive killing the process.
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            RemindersDatabase::class.java
+        )
+            .allowMainThreadQueries()
+            .build()
+
+        dataSource =
+            RemindersLocalRepository(
+                database.reminderDao(),
+                Dispatchers.Main
+            )
+    }
+    @After
+    fun cleanUp() {
+        database.close()
+    }
+
+    @Test
+    fun saveTask_retrievesTask() = runBlocking {
+        // GIVEN - A new Reminder saved in the database.
+        val newReminder = ReminderDTO("title", "description", "location", 0.0,0.0 )
+        dataSource.saveReminder(newReminder)
+
+        // WHEN  - Task retrieved by ID.
+        val result = dataSource.getReminder(newReminder.id)
+        result as Result.Success
+
+        // THEN - Same task is returned.
+        assertThat(result.data.title, `is`("title"))
+        assertThat(result.data.description, `is`("description"))
+        assertThat(result.data.location, `is`("location"))
+        assertThat(result.data.latitude, `is`(0.0))
+        assertThat(result.data.longitude, `is`(0.0))
+    }
 }

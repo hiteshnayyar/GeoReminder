@@ -32,9 +32,9 @@ android {
     testOptions.unitTests {
         includeAndroidResources = true
         returnDefaultValues = true
-        all {
-            systemProperty 'robolectric.dependency.repo.url', 'https://repo1.maven.org/maven2/'
-        }
+//        all {
+//            systemProperty 'robolectric.dependency.repo.url', 'https://repo1.maven.org/maven2/'
+//        }
     }
 
     dataBinding {
@@ -73,13 +73,12 @@ dependencies {
 
     // Koin
     //implementation "io.insert-koin:koin-android:$koinVersion"
+    //implementation("io.insert-koin:koin-core:3.4.2")
+    //testImplementation("io.insert-koin:koin-test:3.4.2")
 
-    //implementation "org.koin:koin-android:$koinVersion"
-    //implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
-    implementation("io.insert-koin:koin-core:3.4.2")
-    testImplementation("io.insert-koin:koin-test:3.4.2")
-    androidTestImplementation("io.insert-koin:koin-test:3.4.2")
-    //androidTestImplementation("org.koin:koin-test:$koinVersion") { exclude group: "org.mockito" }
+    //Koin
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
@@ -118,6 +117,7 @@ dependencies {
     implementation "androidx.test:core:$androidXTestCoreVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+    androidTestImplementation("org.koin:koin-test:$koinVersion") { exclude group: "org.mockito" }
 
     // Maps & Geofencing
     implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
