@@ -73,12 +73,14 @@ dependencies {
 
     // Koin
     //implementation "io.insert-koin:koin-android:$koinVersion"
-    androidTestImplementation("org.koin:koin-test:$koinVersion") { exclude group: "org.mockito" }
 
     //implementation "org.koin:koin-android:$koinVersion"
     //implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
-    implementation("io.insert-koin:koin-core:3.1.6")
-    testImplementation("io.insert-koin:koin-test:3.1.6")
+    implementation("io.insert-koin:koin-core:3.4.2")
+    testImplementation("io.insert-koin:koin-test:3.4.2")
+    androidTestImplementation("io.insert-koin:koin-test:3.4.2")
+    //androidTestImplementation("org.koin:koin-test:$koinVersion") { exclude group: "org.mockito" }
+
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
